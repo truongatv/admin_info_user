@@ -8,14 +8,19 @@
         $address = array();
         $mail = array();
         $i = 0;
+        $exp_special = '/\d|[\$,\！,\＠,\＃,\＄,\％,\＾,\＆,\＊,\（,\）,\ー,\＝,\＋,\？,\＜,\＞,\・,\!,\@,\#,\%,\^,\&,\*,\(,\),\<,\>,\+,\=,\?]/';
+        $exp_special_address = '/[\$,\！,\＠,\＃,\＄,\％,\＾,\＆,\＊,\（,\）,\ー,\＝,\＋,\？,\＜,\＞,\・,\!,\@,\#,\%,\^,\&,\*,\(,\),\<,\>,\+,\=,\?]/';
+        $exp_special_mail = '/[\$,\！,\＃,\＄,\％,\＾,\＆,\＊,\（,\）,\ー,\＝,\＋,\？,\＜,\＞,\・,\!,\#,\%,\^,\&,\*,\(,\),\<,\>,\+,\=,\?]/';
         $result = $conn->query($sql);
         while($row = $result->fetch_assoc()) {
-            $username[$i] = $row["username"];
-            $furigana[$i] = $row["furigana"];
-            $region[$i] = $row["region"];
-            $address[$i] = $row["address"];
-            $mail[$i] = $row["email"];
-            $i ++;
+            if(!preg_match($exp_special, $username) || !preg_match($exp_special, $furigana) || !preg_match($exp_special,$region) || !preg_match($exp_special_address, $address) || !preg_match($exp_special_mail, $mail)){
+                $username[$i] = $row["username"];
+                $furigana[$i] = $row["furigana"];
+                $region[$i] = $row["region"];
+                $address[$i] = $row["address"];
+                $mail[$i] = $row["email"];
+                $i ++;
+            }
         }
     }
 ?>
