@@ -13,7 +13,7 @@
         $exp_special_mail = '/[\$,\！,\＃,\＄,\％,\＾,\＆,\＊,\（,\）,\ー,\＝,\＋,\？,\＜,\＞,\・,\!,\#,\%,\^,\&,\*,\(,\),\<,\>,\+,\=,\?]/';
         $result = $conn->query($sql);
         while($row = $result->fetch_assoc()) {
-            if(!preg_match($exp_special, $username) || !preg_match($exp_special, $furigana) || !preg_match($exp_special,$region) || !preg_match($exp_special_address, $address) || !preg_match($exp_special_mail, $mail)){
+            if(!preg_match($exp_special, $row["username"]) || !preg_match($exp_special, $row["furigana"]) || !preg_match($exp_special,$row["region"]) || !preg_match($exp_special_address, $row["address"]) || !preg_match($exp_special_mail, $row["email"])){
                 $username[$i] = $row["username"];
                 $furigana[$i] = $row["furigana"];
                 $region[$i] = $row["region"];
